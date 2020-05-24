@@ -9,13 +9,14 @@
                 scope.searchCriteria.datatables = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.datatables;
+            scope.filterText = scope.searchCriteria.datatables || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.datatables = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.DataTablesPerPage = 15;
             resourceFactory.DataTablesResource.getAllDataTables(function (data) {
                 scope.datatables = data;
             });

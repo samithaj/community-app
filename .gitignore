@@ -3,13 +3,16 @@
 build
 lib-cov
 lib
+.vscode
 app/bower_components
+app/styles/styles.css
 *.seed
 *.log
 *.csv
 *.dat
 *.out
 *.pid
+*.zip
 *.gz
 *.swp
 pids
@@ -30,3 +33,8 @@ jshint-log.xml
 karma-reports
 app/custom_files
 Gruntfile-custom.js
+.sass-cache
+gems.locked
+.grunt/
+bin/
+*.cache

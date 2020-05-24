@@ -11,13 +11,14 @@
                 scope.searchCriteria.codes = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.codes;
+            scope.filterText = scope.searchCriteria.codes || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.codes = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.CodesPerPage = 15;
             resourceFactory.codeResources.getAllCodes(function (data) {
                 scope.codes = data;
             });

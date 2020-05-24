@@ -10,13 +10,14 @@
                 scope.searchCriteria.employees = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.employees;
+            scope.filterText = scope.searchCriteria.employees || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.employees = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.EmployeesPerPage = 15;
             resourceFactory.employeeResource.getAllEmployees(function (data) {
                 scope.employees = data;
             });

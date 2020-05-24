@@ -11,13 +11,14 @@
                 scope.searchCriteria.loanP = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.loanP;
+            scope.filterText = scope.searchCriteria.loanP || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.loanP = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.LoanProductsPerPage = 15;
             scope.$broadcast('LoanProductDataLoadingStartEvent');
             resourceFactory.loanProductResource.getAllLoanProducts(function (data) {
                 scope.loanproducts = data;

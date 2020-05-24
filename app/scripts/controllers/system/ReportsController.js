@@ -11,13 +11,14 @@
                 scope.searchCriteria.manrep = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.manrep;
+            scope.filterText = scope.searchCriteria.manrep || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.manrep = scope.filterText;
                 scope.saveSC();
             }
 
+            scope.ReportsPerPage = 15;
             resourceFactory.reportsResource.getReport(function (data) {
                 scope.reports = data;
             });

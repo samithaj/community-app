@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         GlobalConfigurationController: function (scope, resourceFactory, location, route) {
             scope.configs = [];
+            scope.GlobalsPerPage = 15;
             resourceFactory.configurationResource.get(function (data) {
                 for (var i in data.globalConfiguration) {
                     data.globalConfiguration[i].showEditvalue = true;
@@ -17,6 +18,7 @@
                             scope.configs.push(cache);
                         }
                     }
+
                 });
             });
 
@@ -24,7 +26,7 @@
                 scope.searchCriteria.config = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.config;
+            scope.filterText = scope.searchCriteria.config || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.config = scope.filterText;

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ManageGroupMembersController: function ($q, scope, resourceFactory, location, routeParams, $modal) {
+        ManageGroupMembersController: function ($q, scope, resourceFactory, location, routeParams, $uibModal) {
         	
         	scope.centerId = routeParams.id;
             scope.indexOfClientToBeDeleted = "";
@@ -12,15 +12,17 @@
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true', associations: 'groupMembers'}, function (data) {
                 scope.data = data;
                 scope.groups = data.groupMembers;
-            });
 
-            scope.groupsOptions = function(value){
-                var deferred = $q.defer();
-                resourceFactory.groupResource.getAllGroups({name: value ,orderBy: 'name', sortOrder: 'ASC',orphansOnly: true,
+                resourceFactory.groupResource.getAllGroups({orderBy: 'name', sortOrder: 'ASC',orphansOnly: true,
                     officeId : scope.data.officeId},function(data){
-                    deferred.resolve(data);
+                    scope.allGroups = data;
                 });
-                return deferred.promise;
+            });
+            
+            scope.groupsOptions = function(value){
+                return _.filter(scope.allGroups,function(group){
+                        return group.name.indexOf(value) != -1
+                });
             };
 
             scope.add = function () {
@@ -40,7 +42,7 @@
 
             scope.remove = function (index,id) {
                 scope.indexOfClientToBeDeleted = index;
-            	$modal.open({
+            	$uibModal.open({
                     templateUrl: 'delete.html',
                     controller: GroupDeleteCtrl
                 });
@@ -49,21 +51,21 @@
             	scope.disassociate.groupMembers.push(id);
             };
             
-            var GroupDeleteCtrl = function ($scope, $modalInstance) {
+            var GroupDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                 	resourceFactory.centerResource.save({centerId: routeParams.id, command: 'disassociateGroups' }, scope.disassociate, function (data) {
                         scope.groups.splice(scope.indexOfClientToBeDeleted, 1);
                         scope.available = "";
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                 	});
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ManageGroupMembersController', ['$q','$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', mifosX.controllers.ManageGroupMembersController]).run(function ($log) {
+    mifosX.ng.application.controller('ManageGroupMembersController', ['$q','$scope', 'ResourceFactory', '$location', '$routeParams', '$uibModal', mifosX.controllers.ManageGroupMembersController]).run(function ($log) {
         $log.info("ManageGroupMembersController initialized");
     });
 }(mifosX.controllers || {}));

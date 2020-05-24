@@ -5,6 +5,7 @@
             scope.actualGroups = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.showClosed = false;
             scope.routeTo = function (id) {
                 location.path('/viewgroup/' + id);
             };
@@ -13,7 +14,7 @@
                 scope.searchCriteria.groups = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.groups;
+            scope.filterText = scope.searchCriteria.groups || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.groups = scope.filterText;

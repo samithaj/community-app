@@ -11,13 +11,14 @@
                 scope.searchCriteria.savingP = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.savingP;
+            scope.filterText = scope.searchCriteria.savingP || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.savingP = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.SavingsProductsPerPage = 15;
             resourceFactory.savingProductResource.getAllSavingProducts(function (data) {
                 scope.savingproducts = data;
             });

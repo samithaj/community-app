@@ -5,6 +5,7 @@
             scope.actualCenters = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.showClosed = false;
             scope.routeTo = function (id) {
                 location.path('/viewcenter/' + id);
             };
@@ -13,7 +14,7 @@
                 scope.searchCriteria.centers = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.centers;
+            scope.filterText = scope.searchCriteria.centers || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.centers = scope.filterText;

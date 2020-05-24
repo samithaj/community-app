@@ -15,7 +15,7 @@
                 scope.searchCriteria.reports = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.reports;
+            scope.filterText = scope.searchCriteria.reports || '';
 
             scope.addLocaleReportName = function (){
                 if(document.getElementsByName("locale_name") != undefined && scope.reports){
@@ -29,6 +29,10 @@
                     scope.onFilter();
                 }
             };
+
+            scope.filterByReportSubType = function(report) {
+                return !(report.report_subtype === 'Triggered');
+            }
 
             scope.onFilter = function () {
                 scope.searchCriteria.reports = scope.filterText;
@@ -60,6 +64,8 @@
                     scope.reports = scope.getReports(data);
                 });
             }
+
+            scope.ReportsPerPage = 15;
 
             // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
             scope.getReports = function (data) {

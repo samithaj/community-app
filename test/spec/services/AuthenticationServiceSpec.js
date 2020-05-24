@@ -2,7 +2,7 @@ describe("AuthenticationService", function () {
     var scope, httpService, callbacks, localStorageService;
     beforeEach(function () {
         callbacks = {};
-        scope = jasmine.createSpyObj("$rootScope", ['$broadcast']);
+        scope = jasmine.createSpyObj("$rootScope", ['$broadcast', '$on']);
         localStorageService = jasmine.createSpyObj('localStorageService', ['addToLocalStorage']);
 
         httpService = jasmine.createSpyObj("httpService", ['post', 'success', 'error']);
@@ -21,7 +21,7 @@ describe("AuthenticationService", function () {
     });
 
     it("should pass the correct parameters to the post method", function () {
-        expect(httpService.post).toHaveBeenCalledWith("/fineract-provider/api/v1/authentication?username=test_username&password=test_password");
+        expect(httpService.post).toHaveBeenCalledWith("/fineract-provider/api/v1/authentication", { "username" : "test_username", "password" : "test_password" });
     });
 
     it("should broadcast 'UserAuthenticationStartEvent'", function () {

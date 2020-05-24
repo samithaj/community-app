@@ -12,8 +12,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'NotificationResponseHeaderProvider'
         ],
+
         controllers: [
             'main/MainController',
             'main/LoginFormController',
@@ -61,6 +63,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
             'client/SurveyController',
+            'client/ViewClientSurveyController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
             'product/CreateSavingProductController',
@@ -167,6 +170,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/ViewAccountNumberPreferencesController',
             'system/AddAccountNumberPreferencesController',
             'system/EditAccountNumberPreferencesController',
+            'system/ManageSurveysController',
+            'system/EditSurveyController',
+            'system/ViewSurveyController',
             'organization/HolController',
             'organization/ViewHolController',
             'organization/EditHolidayController',
@@ -273,6 +279,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
+            'configurations/ViewTwoFactorConfigController',
+            'configurations/EditTwoFactorConfigController',
             'product/tax/CreateTaxComponentController',
             'product/tax/ViewTaxComponentController',
             'product/tax/EditTaxComponentController',
@@ -280,7 +288,43 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/CreateTaxGroupController',
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
-            'product/tax/TaxGroupController'
+            'product/tax/TaxGroupController',
+            'configurations/EditAddressController',
+            'configurations/AddressFormController',
+            'organization/smscampaigns/SmsCampaignsController',
+            'organization/smscampaigns/CreateSmsCampaignController',
+            'organization/smscampaigns/ViewSmsCampaignController',
+            'organization/smscampaigns/EditSmsCampaignController',
+            'organization/entitydatatablechecks/EntityDatatableChecksController',
+            'notification/NotificationsController',
+            'selfservice/CreateSelfServiceUserController',
+            'notification/NotificationsController',
+            'configurations/AddressFormController',
+            'client/EditFamilyMemberController',
+            'client/AddFamilyMembersController',
+            'organization/BulkImportOfficesController',
+            'client/BulkImportClientsController',
+			'centers/BulkImportCentersController',
+			'organization/BulkImportEmployeeController',
+			'loanAccount/BulkImportLoanAccountsController',
+            'loanAccount/BulkImportLoanRepaymentController',
+            'loanAccount/BulkImportGuarantorController',
+			'savings/BulkImportSavingsAccountController',
+			'savings/BulkImportSavingsAccountsTransactionsController',
+			'groups/BulkImportGroupController',
+			'deposits/recurring/BulkImportRecurringDepositController',
+            'deposits/recurring/BulkImportRecurringDepositTransactionsController',
+			'shares/BulkImportShareAccountController',
+			'deposits/fixed/BulkImportFixedDepositAccountsController',
+			'deposits/fixed/BulkImportFixedDepositTransactionsController',
+			'accounting/BulkImportCOAController',
+			'accounting/BulkImportJournalEntriesController',
+			'user/BulkImportUsersController',
+			'adhocquery/AdHocQueryListController',
+            'adhocquery/CreateAdHocQueryController',
+            'adhocquery/ViewAdHocQueryController',
+            'adhocquery/EditAdHocQueryController'
+
         ],
         filters: [
             'StatusLookup',
@@ -314,11 +358,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ChosenComboboxDirective',
             'NumberFormatDirective',
             'SuccessfulResponsesDirective',
-            'TabsPersistenceDirective'
+            'TabsPersistenceDirective',
+            'ScrollableDirective',
+            'DecimalDirective'
         ]
     };
 
     return function() {
+      console.log();
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
             return list.concat(_.map(components[group], function (name) {

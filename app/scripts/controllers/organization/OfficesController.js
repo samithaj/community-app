@@ -13,7 +13,7 @@
                 scope.searchCriteria.offices = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.offices;
+            scope.filterText = scope.searchCriteria.offices || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.offices = scope.filterText;
@@ -38,6 +38,7 @@
                 return obj;
             }
 
+            scope.OfficesPerPage =15;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = scope.deepCopy(data);
                 for (var i in data) {

@@ -11,13 +11,14 @@
                 scope.searchCriteria.hooks = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.hooks;
+            scope.filterText = scope.searchCriteria.hooks || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.hooks = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.HooksPerPage = 15;
             resourceFactory.hookResources.getAllHooks(function (data) {
                 scope.hooks = data;
             });

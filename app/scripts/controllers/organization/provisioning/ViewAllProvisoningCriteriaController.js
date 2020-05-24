@@ -19,12 +19,14 @@
                 scope.searchCriteria.criterias = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.criterias;
+            scope.filterText = scope.searchCriteria.criterias || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.criterias = scope.filterText;
                 scope.saveSC();
             };
+
+            scope.ProvisioningPerPage = 15;
             resourceFactory.provisioningcriteria.getAll(function (data) {
                 scope.criterias = data;
             });

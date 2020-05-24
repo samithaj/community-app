@@ -11,13 +11,14 @@
                 scope.searchCriteria.charges = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.charges;
+            scope.filterText = scope.searchCriteria.charges || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.charges = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.ChargesPerPage =15;
             scope.$broadcast('ChargeDataLoadingStartEvent');
             resourceFactory.chargeResource.getAllCharges(function (data) {
                 scope.charges = data;

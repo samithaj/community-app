@@ -9,13 +9,14 @@
                 scope.searchCriteria.rdp = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.rdp;
+            scope.filterText = scope.searchCriteria.rdp || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.rdp = scope.filterText;
                 scope.saveSC();
             };
 
+            scope.RecurringDepositsPerPage =15;
             resourceFactory.recurringDepositProductResource.getAllRecurringDepositProducts(function (data) {
                 scope.depositproducts = data;
             });

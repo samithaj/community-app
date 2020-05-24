@@ -13,13 +13,15 @@
                 scope.searchCriteria.holidays = [null, null];
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.holidays[0];
+            scope.filterText = scope.searchCriteria.holidays[0] || '';
             scope.formData.officeId = scope.searchCriteria.holidays[1];
 
             scope.onFilter = function () {
                 scope.searchCriteria.holidays[0] = scope.filterText;
                 scope.saveSC();
             };
+
+            scope.HolidaysPerPage =15;
 
             resourceFactory.holResource.getAllHols({officeId: scope.formData.officeId}, function (data) {
                 scope.holidays = data;
